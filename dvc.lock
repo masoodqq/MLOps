@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  ingest:
+    cmd: python ingest.py
+    deps:
+    - path: ingest.py
+      hash: md5
+      md5: 829f7a7aedbab3118304ebde75450b67
+      size: 1040
+    params:
+      params.yaml:
+        api.end_date: '2023-12-31'
+        api.latitude: 48.8566
+        api.longitude: 2.3522
+        api.start_date: '2023-01-01'
+        api.variables:
+        - temperature_2m
+        - relative_humidity_2m
+        - wind_speed_10m
+        - precipitation
+        paths.raw: data/raw/weather.csv
+    outs:
+    - path: data/raw/weather.csv
+      hash: md5
+      md5: 376c495d1ba1d541aa5cf46bb44fb35d
+      size: 291894
+  preprocess:
+    cmd: python preprocess.py
+    deps:
+    - path: data/raw/weather.csv
+      hash: md5
+      md5: 376c495d1ba1d541aa5cf46bb44fb35d
+      size: 291894
+    - path: preprocess.py
+      hash: md5
+      md5: 2724b45717de976b464f48fa7c5b6174
+      size: 801
+    params:
+      params.yaml:
+        paths.processed: data/processed/weather_clean.csv
+        paths.raw: data/raw/weather.csv
+    outs:
+    - path: data/processed/weather_clean.csv
+      hash: md5
+      md5: d516025f4040884d1bf9bc12fabce9f6
+      size: 378075
