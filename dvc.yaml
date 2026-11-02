@@ -23,3 +23,8 @@ stages:
       - paths.processed
     outs:
       - data/processed/weather_clean.csv
+
+  validate:
+    
+
+    
